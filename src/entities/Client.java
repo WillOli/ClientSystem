@@ -20,7 +20,7 @@ public class Client {
     public Client(String name, String email, Date date) {
         this.name = name;
         this.email = email;
-        this.date  = date;
+        this.birthDate  = date;
     }
 
     public String getName() {
