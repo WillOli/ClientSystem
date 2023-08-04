@@ -1,12 +1,14 @@
 package entities;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Order {
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     private Date moment;
-    private OrderItem satus;
+    private OrderItem status;
     private Client client;
     private List<OrderItem> items = new ArrayList<OrderItem>();
 
@@ -16,7 +18,7 @@ public class Order {
 
     public Order(Date moment, OrderItem status, Client client) {
         this.moment = moment;
-        this.satus = status;
+        this.status = status;
         this.client = client;
 
     }
@@ -29,10 +31,10 @@ public class Order {
         this.moment = moment;
     }
     public OrderItem getSatus() {
-        return satus;
+        return status;
     }
-    public void setSatus(OrderItem satus) {
-        this.satus = satus;
+    public void setSatus(OrderItem status) {
+        this.status = status;
     }
     public Client getClient() {
         return client;
@@ -53,6 +55,24 @@ public class Order {
         for (OrderItem it : items) {
             sum = sum + it.subTotal();
         }
-        return total();
+        return sum;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Order moment: ");
+        sb.append(sdf.format(moment) + "\n");
+        sb.append("Order status: ");
+        sb.append(status + "\n");
+        sb.append("Client: ");
+        sb.append(client + "\n");
+        sb.append("Order items:\n");
+        for (OrderItem item : items) {
+            sb.append(item + "\n");
+        }
+        sb.append("Total price: $");
+        sb.append(String.format("%.2f", total()));
+        return sb.toString();
     }
 }
